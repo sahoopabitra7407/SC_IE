@@ -1,0 +1,244 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base Typography ─── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    background-color: #F6F3EC;
+    color: #1F2022;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .dark body {
+    background-color: #161716;
+    color: #E8E5DD;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+
+  h1 { font-size: 2.25rem; }
+  h2 { font-size: 1.5rem;  }
+  h3 { font-size: 1.125rem; }
+  h4 { font-size: 0.9375rem; font-weight: 600; }
+
+  code, .mono {
+    font-family: 'JetBrains Mono', Consolas, monospace;
+    font-size: 0.8125rem;
+  }
+
+  /* Remove outline rings that are harsh, use subtler focus style */
+  :focus-visible {
+    outline: 2px solid #2F6B4F;
+    outline-offset: 2px;
+  }
+}
+
+/* ─── Range Slider ─── */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: #D8D4CB;
+  cursor: pointer;
+  transition: background 150ms;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #2F6B4F;
+  border: 2px solid #F6F3EC;
+  box-shadow: 0 1px 4px rgba(31,32,34,0.2);
+  transition: transform 150ms;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+input[type="range"]:focus-visible {
+  outline: none;
+}
+input[type="range"]:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px #2F6B4F33;
+}
+.dark input[type="range"] {
+  background: #2E312E;
+}
+.dark input[type="range"]::-webkit-slider-thumb {
+  border-color: #1E201E;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #D8D4CB; border-radius: 3px; }
+.dark ::-webkit-scrollbar-thumb { background: #2E312E; }
+
+/* ─── Divider Utility ─── */
+.divider {
+  border: none;
+  border-top: 1px solid #D8D4CB;
+}
+.dark .divider {
+  border-top-color: #2E312E;
+}
+
+/* ─── Hand-underline on hero H1 ─── */
+.underline-hand {
+  position: relative;
+  display: inline;
+}
+.underline-hand::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 3px;
+  background: #2F6B4F;
+  border-radius: 2px;
+  /* slight svg-wave effect via clip */
+  clip-path: polygon(0 60%, 4% 40%, 8% 60%, 12% 40%, 16% 60%,
+                     20% 40%, 24% 60%, 28% 40%, 32% 60%, 36% 40%,
+                     40% 60%, 44% 40%, 48% 60%, 52% 40%, 56% 60%,
+                     60% 40%, 64% 60%, 68% 40%, 72% 60%, 76% 40%,
+                     80% 60%, 84% 40%, 88% 60%, 92% 40%, 96% 60%,
+                     100% 40%, 100% 100%, 0 100%);
+}
+
+/* ─── Layout shell: sidebar + main ─── */
+.layout-shell {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+}
+@media (max-width: 900px) {
+  .layout-shell {
+    grid-template-columns: 1fr;
+  }
+  .sidebar { display: none; }
+}
+
+/* ─── Gauge bands ─── */
+.gauge-fresh    { background: #EAF2ED; }
+.gauge-moderate { background: #FEF3C7; }
+.gauge-spoiled  { background: #FDECEA; }
+
+/* ─── Table zebra ─── */
+.table-zebra tbody tr:nth-child(even) {
+  background-color: rgba(216, 212, 203, 0.25);
+}
+.dark .table-zebra tbody tr:nth-child(even) {
+  background-color: rgba(46, 49, 46, 0.35);
+}
+
+/* ─── Chart figure label ─── */
+.fig-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.6875rem;
+  color: #4A4A4A;
+  font-style: italic;
+  text-align: center;
+  margin-top: 0.375rem;
+}
+.dark .fig-label { color: #A0A89E; }
+
+/* ─── Status chips ─── */
+.chip-fresh    { background: #EAF2ED; color: #2F6B4F; border: 1px solid #c0ddd0; }
+.chip-moderate { background: #FEF3C7; color: #92400E; border: 1px solid #fcd98b; }
+.chip-spoiled  { background: #FDECEA; color: #9E2A2B; border: 1px solid #f5bab9; }
+
+.dark .chip-fresh    { background: #1C2E24; color: #5A9C7D; border-color: #2a4d38; }
+.dark .chip-moderate { background: #2C2010; color: #D97706; border-color: #5a3b00; }
+.dark .chip-spoiled  { background: #2A1010; color: #E05252; border-color: #5a1a1a; }
+
+/* ─── Sidebar link ─── */
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0.875rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4A4A4A;
+  text-decoration: none;
+  transition: background 150ms, color 150ms;
+  cursor: pointer;
+}
+.sidebar-link:hover {
+  background: rgba(47, 107, 79, 0.08);
+  color: #2F6B4F;
+}
+.sidebar-link.active {
+  background: rgba(47, 107, 79, 0.12);
+  color: #2F6B4F;
+  font-weight: 600;
+}
+.dark .sidebar-link { color: #A0A89E; }
+.dark .sidebar-link:hover,
+.dark .sidebar-link.active { background: rgba(47,107,79,0.18); color: #5A9C7D; }
+
+/* ─── Btn primary ─── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 1.125rem;
+  background: #2F6B4F;
+  color: #F6F3EC;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: background 150ms, transform 150ms;
+  text-decoration: none;
+}
+.btn-primary:hover  { background: #255840; transform: translateY(-1px); }
+.btn-primary:active { transform: translateY(0); }
+.dark .btn-primary  { color: #F6F3EC; }
+
+/* ─── Btn ghost ─── */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 1rem;
+  background: transparent;
+  color: #2F6B4F;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 4px;
+  border: 1px solid #2F6B4F;
+  cursor: pointer;
+  transition: background 150ms;
+}
+.btn-ghost:hover { background: rgba(47,107,79,0.08); }
+.dark .btn-ghost { color: #5A9C7D; border-color: #5A9C7D; }
+.dark .btn-ghost:hover { background: rgba(47,107,79,0.15); }
+
+/* ─── Footnote ─── */
+.footnote {
+  font-size: 0.75rem;
+  color: #4A4A4A;
+  font-style: italic;
+}
+.dark .footnote { color: #A0A89E; }
